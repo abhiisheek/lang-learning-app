@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup/Run App
+
+1.  Clone the repo
+2.  Install NodeJS (Ignore this if you have already installed NodeJS on your system)
+3.  Open terminal, go to the project directory and run below commands
+
+        npm i
+        npm start
+
 ## Available Scripts
 
 In the project directory, you can run:
