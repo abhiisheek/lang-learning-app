@@ -5,6 +5,7 @@ import Home from "./views/Home";
 import MyCourses from "./views/MyCourses";
 import MyReports from "./views/MyReports";
 import Courses from "./views/Courses";
+import Course from "./views/Course";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 import { UserContext } from "./context/UserContext";
@@ -30,6 +31,7 @@ const App = () => {
               <Routes>
                 <Route path="/my-courses" element={<MyCourses />} />
                 <Route path="/my-reports" element={<MyReports />} />
+                <Route path="/course" exact element={<Course />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="*" element={<Navigate to="/courses" replace />} />
               </Routes>
