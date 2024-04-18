@@ -1,0 +1,7 @@
+.wrapper {
+  height: inherit;
+}
+
+.contentWrapper {
+  height: calc(100% - 88px);
+}
