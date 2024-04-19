@@ -25,6 +25,7 @@ const messages = {
     LANGUAGE: "Language",
     LEVEL: "Level",
     MARK_AS_COMPLETE: "Mark As Complete",
+    ENROLL: "Enroll",
   },
 };
 

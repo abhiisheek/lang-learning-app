@@ -32,7 +32,6 @@ const {
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   "&.MuiAppBar-root": {
-    backgroundColor: theme.palette.colors.white,
     boxShadow: "none",
     borderBottom: `1px solid ${theme.palette.divider}`,
     position: "relative",
@@ -43,26 +42,27 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   "&.MuiToolbar-root": {
     minHeight: HEADER.HEIGHT,
     maxHeight: HEADER.HEIGHT,
-    backgroundColor: theme.palette.colors.white,
     display: "flex",
   },
 }));
 
-// eslint-disable-next-line no-unused-vars
-const StypedTypography = styled(Typography)(({ theme }) => ({
-  "&.MuiTypography-subtitle1": {
-    color: theme.palette.colors.black87,
-    paddingLeft: 8,
+const StypedButton = styled(Button)(({ theme }) => ({
+  "&.MuiButton-root": {
+    color: theme.palette.primary.contrastText,
+    "&:hover": {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+    },
   },
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   "&.MuiAvatar-root": {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.contrastText,
     fontSize: 16,
     width: 32,
     height: 32,
-    marginRight: 24,
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -108,9 +108,7 @@ const Header = () => {
                   <img src={Logo} alt="app-logo" className={cssStyles.logo} />
                 </Grid>
                 <Grid item>
-                  <Typography variant="h5" color="secondary">
-                    {APP_TITLE}
-                  </Typography>
+                  <Typography variant="h5">{APP_TITLE}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -131,14 +129,13 @@ const Header = () => {
                       {userDetails.shortId}
                     </StyledAvatar>
                   ) : (
-                    <Button
+                    <StypedButton
                       variant="outlined"
-                      color="primary"
                       size="small"
                       onClick={handleOnLoginDialogOpen}
                     >
                       {LOGIN}
-                    </Button>
+                    </StypedButton>
                   )}
                   <Menu
                     anchorEl={menuTarget}

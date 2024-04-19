@@ -37,6 +37,10 @@ const theme = createTheme({
       dark: errorDark,
       contrastText: black,
     },
+    warning: {
+      main: "#ffc900",
+      contrastText: white,
+    },
     colors: {
       cerulean: "#006cce",
       black: "#000000",

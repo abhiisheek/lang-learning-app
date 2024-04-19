@@ -2,7 +2,6 @@ import React, { useState, useCallback } from "react";
 
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   TextField,
@@ -15,7 +14,6 @@ const {
   LOGIN_DIALOG: {
     TITLE,
     EMAIL,
-    EMAIL_VAILDATION_ERROR,
     PASSWORD,
     SING_UP,
     CANCEL_BTN,

@@ -30,7 +30,7 @@ const constants = {
     WIDTH: rightDrawerWidth,
   },
   HEADER: {
-    HEIGHT: 92,
+    HEIGHT: 68,
   },
   USER_DETAILS_CONTEXT: {
     name: "Test User",
