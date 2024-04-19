@@ -8,7 +8,6 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import HomeIcon from "@mui/icons-material/Home";
 import QuizIcon from "@mui/icons-material/Quiz";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 
