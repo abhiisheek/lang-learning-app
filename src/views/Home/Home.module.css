@@ -5,3 +5,9 @@
 .contentWrapper {
   height: calc(100% - 88px);
 }
+
+.mainWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}

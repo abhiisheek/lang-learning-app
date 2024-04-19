@@ -17,15 +17,10 @@ import { Link } from "react-router-dom";
 import messages from "../../constants/messages";
 
 const {
-  NAV: { HOME, MY_COURSES, MY_REPORTS, COURSES },
+  NAV: { MY_COURSES, MY_REPORTS, COURSES },
 } = messages;
 
 const navs = [
-  {
-    name: HOME,
-    icon: HomeIcon,
-    path: "/",
-  },
   {
     name: MY_COURSES,
     icon: QuizIcon,

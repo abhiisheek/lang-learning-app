@@ -53,7 +53,7 @@ const Home = ({ children }) => {
           >
             <NavMenu />
           </Drawer>
-          <main style={{ width: "100%" }}>{children}</main>
+          <main className={cssStyles.mainWrapper}>{children}</main>
         </div>
       </div>
     </UISettingsContext.Provider>

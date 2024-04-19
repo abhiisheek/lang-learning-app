@@ -43,6 +43,16 @@ const constants = {
     onOpenRightDrawer: () => {},
     onCloseRightDrawer: () => {},
   },
+  STATUS_MAP: {
+    0: { label: "Not Started", color: "info" },
+    1: { label: "In Progress", color: "warning" },
+    2: { label: "Completed", color: "success" },
+  },
+  LEVEL_MAP: {
+    1: { label: "Beginner" },
+    2: { label: "Intermediate" },
+    3: { label: "Advanced" },
+  },
 };
 
 export default constants;
