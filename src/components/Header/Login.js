@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
 
 import {
   Dialog,
@@ -8,17 +9,11 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+
 import messages from "../../constants/messages";
 
 const {
-  LOGIN_DIALOG: {
-    TITLE,
-    EMAIL,
-    PASSWORD,
-    SING_UP,
-    CANCEL_BTN,
-    LOGIN_BTN,
-  },
+  LOGIN_DIALOG: { TITLE, EMAIL, PASSWORD, SING_UP, CANCEL_BTN, LOGIN_BTN },
 } = messages;
 
 const Login = ({ onLogin, open, onCancel, onSignup }) => {
@@ -78,6 +73,13 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
       </DialogContent>
     </Dialog>
   );
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+  open: PropTypes.number.isRequired,
+  onSignup: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default React.memo(Login);

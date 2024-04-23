@@ -11,3 +11,8 @@
   height: 100%;
   overflow: scroll;
 }
+
+.loader {
+  position: absolute;
+  z-index: 10000 !important;
+}

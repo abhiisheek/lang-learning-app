@@ -46,7 +46,7 @@ const CourseCard = (props = data) => {
             <Chip
               {...status}
               size="small"
-              style={{ height: 16, fontSize: 12, marginTop: -6 }}
+              style={{ height: 16, fontSize: 12, marginTop: -6, marginLeft: 4 }}
             />
           </Typography>
           <Typography variant="caption" gutterBottom component="div">

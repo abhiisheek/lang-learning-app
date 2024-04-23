@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useMemo, useState } from "react";
+import PropTypes from "prop-types";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -66,7 +67,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({ onLogin }) => {
   const userDetails = useContext(UserContext);
   const [menuTarget, setMenuTarget] = useState(null);
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
@@ -90,6 +91,10 @@ const Header = () => {
     (evt) => setMenuTarget(null),
     []
   );
+
+  const handleOnLogin = useCallback(() => {
+    onLogin();
+  }, [onLogin]);
 
   const menuOpen = useMemo(() => Boolean(menuTarget), [menuTarget]);
 
@@ -152,11 +157,17 @@ const Header = () => {
           </Grid>
         </StyledToolbar>
       </StyledAppBar>
-      <Login open={openLoginDialog} onCancel={handleOnLoginDialogClose} />
+      <Login
+        open={openLoginDialog}
+        onCancel={handleOnLoginDialogClose}
+        onLogin={handleOnLogin}
+      />
     </>
   );
 };
 
-Header.propTypes = {};
+Header.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 
 export default React.memo(Header);

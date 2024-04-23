@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Grid } from "@mui/material";
 import CourseCard from "../../components/CourseCard";
+import Loader from "../../components/Loader";
 
 const data = [
   {
@@ -63,14 +64,22 @@ const data = [
 ];
 
 const Courses = () => {
+  const [loading] = useState(false);
+
   return (
-    <Grid container spacing={2} style={{ padding: 24 }}>
-      {data.map((item, index) => (
-        <Grid item md={4}>
-          <CourseCard {...item} actionAreaDiabled />
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Grid container spacing={2} style={{ padding: 24 }}>
+          {data.map((item, index) => (
+            <Grid item md={4}>
+              <CourseCard {...item} actionAreaDiabled />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      )}
+    </>
   );
 };
 
