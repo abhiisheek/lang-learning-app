@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Home from "./views/Home";
@@ -16,11 +16,28 @@ import "./App.css";
 
 const App = () => {
   const location = useLocation();
+  const [userInfo, setUserInfo] = useState(constants.USER_DETAILS_CONTEXT);
 
   const userDetails = useMemo(() => {
-    // TODO - Read from authentication details
-    return constants.USER_DETAILS_CONTEXT;
-  }, []);
+    const lsData = sessionStorage.getItem(
+      constants.SESSIONSTORAGE_KEYS.USERDETAILS
+    );
+    let data = userInfo;
+
+    if (lsData) {
+      const userData = JSON.parse(lsData);
+
+      data = {
+        name: userData.name,
+        email: userData.email,
+        shortId: `${userData.name[0]}${
+          userData.name[userData.name.length - 1]
+        }`,
+      };
+    }
+
+    return { ...data, setUserInfo };
+  }, [userInfo]);
 
   return (
     <div className="App">

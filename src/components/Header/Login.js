@@ -59,7 +59,10 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
               </Button>
             </Grid>
             <Grid item>
-              <Button onClick={onLogin} variant="contained">
+              <Button
+                onClick={() => onLogin({ email, password })}
+                variant="contained"
+              >
                 {LOGIN_BTN}
               </Button>
             </Grid>
@@ -77,7 +80,7 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
-  open: PropTypes.number.isRequired,
+  open: PropTypes.bool.isRequired,
   onSignup: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };

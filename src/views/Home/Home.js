@@ -1,21 +1,29 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  useContext,
+  useEffect,
+} from "react";
 import PropTypes from "prop-types";
 
 import { Drawer } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { UISettingsContext } from "../../context/UISettingContext";
-
 import Header from "../../components/Header";
 import NavMenu from "../../components/NavMenu";
-
-import constants from "../../constants/constants";
-
-import cssStyles from "./Home.module.css";
 import Loader from "../../components/Loader";
+import { UserContext } from "../../context/UserContext";
+import constants from "../../constants/constants";
+import cssStyles from "./Home.module.css";
 
 const { NAV_SIDE_BAR, HEADER, UI_SETTINGS_CONTEXT } = constants;
 
 const Home = ({ children }) => {
+  const userDetails = useContext(UserContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const uiSettings = useMemo(
     () => ({
@@ -24,10 +32,14 @@ const Home = ({ children }) => {
     []
   );
 
-  const handleOnLogin = useCallback(() => {
-    setLoading(true);
+  useEffect(() => {
+    if (location.pathname !== "/courses" && !userDetails.email) {
+      navigate("/courses");
+    }
+  }, [userDetails, location, navigate]);
 
-    setTimeout(() => setLoading(false), 10000);
+  const handleOnLogin = useCallback((showLoader) => {
+    setLoading(showLoader);
   }, []);
 
   return (

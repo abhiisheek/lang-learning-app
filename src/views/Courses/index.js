@@ -73,7 +73,7 @@ const Courses = () => {
       ) : (
         <Grid container spacing={2} style={{ padding: 24 }}>
           {data.map((item, index) => (
-            <Grid item md={4}>
+            <Grid item md={4} key={index}>
               <CourseCard {...item} actionAreaDiabled />
             </Grid>
           ))}

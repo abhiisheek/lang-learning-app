@@ -1,6 +1,13 @@
 const rightDrawerWidth = 482;
 
 const constants = {
+  URL_KEYS: {
+    LOGIN: "LOGIN",
+    SIGNUP: "SIGNUP",
+  },
+  SESSIONSTORAGE_KEYS: {
+    USERDETAILS: "userDetails",
+  },
   API_META: {
     DEFAULT_HEADER: {
       Accept: "application/json",
@@ -33,9 +40,10 @@ const constants = {
     HEIGHT: 68,
   },
   USER_DETAILS_CONTEXT: {
-    name: "Test User",
-    email: "test.user@abc.com",
+    name: "",
+    email: "",
     shortId: "TU",
+    token: "",
   },
   UI_SETTINGS_CONTEXT: {
     openRightDrawer: false,
