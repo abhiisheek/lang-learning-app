@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import CourseCard from "../../components/CourseCard";
 import Loader from "../../components/Loader";
+import ViewHeader from "../../components/ViewHeader";
 
 const data = [
   {
@@ -68,6 +69,7 @@ const MyCourses = () => {
 
   return (
     <>
+      <ViewHeader title="My Courses" />
       {loading ? (
         <Loader />
       ) : (

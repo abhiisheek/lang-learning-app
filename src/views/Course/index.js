@@ -17,6 +17,7 @@ import banner from "../../images/english.png";
 
 import messages from "../../constants/messages";
 import constants from "../../constants/constants";
+import ViewHeader from "../../components/ViewHeader";
 
 import cssStyles from "./Course.module.css";
 
@@ -73,6 +74,7 @@ const Course = () => {
 
   return (
     <>
+      <ViewHeader title="Course Page" />
       {loading ? (
         <Loader />
       ) : (
