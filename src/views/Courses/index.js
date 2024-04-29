@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import CourseCard from "../../components/CourseCard";
 import Loader from "../../components/Loader";
 import ViewHeader from "../../components/ViewHeader";
+import LangFilter from "../../components/LangFilter";
 
 const data = [
   {
@@ -73,13 +74,16 @@ const Courses = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Grid container spacing={2} style={{ padding: 24 }}>
-          {data.map((item, index) => (
-            <Grid item md={4} key={index}>
-              <CourseCard {...item} actionAreaDiabled />
-            </Grid>
-          ))}
-        </Grid>
+        <>
+          <LangFilter />
+          <Grid container spacing={2} style={{ padding: 24 }}>
+            {data.map((item, index) => (
+              <Grid item md={4} key={index}>
+                <CourseCard {...item} actionAreaDiabled />
+              </Grid>
+            ))}
+          </Grid>
+        </>
       )}
     </>
   );

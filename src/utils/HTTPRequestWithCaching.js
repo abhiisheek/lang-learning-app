@@ -1,8 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 import axios from "axios";
 
-const authToken = "token";
-
 const needsPayload = {
   POST: true,
   PUT: true,
@@ -58,6 +56,7 @@ export class HTTPRequestWithCaching {
     cacheExpireDuration = 5 * 60000, // In milliseconds (5mins default)
     isMultiPart = false,
     formatterFunc,
+    token,
     setAuthorizationInHeader = true,
   }) {
     return new Promise((resolve, reject) => {
@@ -78,7 +77,7 @@ export class HTTPRequestWithCaching {
         const headers = { ...reqHeaders };
 
         if (setAuthorizationInHeader) {
-          headers.Authorization = `Bearer ${authToken}`;
+          headers.Authorization = `Bearer ${token}`;
         }
 
         axios({ url, method, headers, ...payload }).then(
