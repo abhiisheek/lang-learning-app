@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -28,6 +28,11 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
     (evt) => setPassword(evt.target.value),
     []
   );
+
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, [open]);
 
   return (
     <Dialog open={open} onClose={onCancel} maxWidth="sm" fullWidth>
@@ -62,6 +67,7 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
               <Button
                 onClick={() => onLogin({ email, password })}
                 variant="contained"
+                disabled={!email || !password}
               >
                 {LOGIN_BTN}
               </Button>

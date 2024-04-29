@@ -16,6 +16,7 @@ const messages = {
     CANCEL_BTN: "Cancel",
     SING_UP: "New? Sign-up Now",
     LOGIN_SUCCESS: "Login successfull!",
+    LOGOUT_SUCCESSFULL: "Logged out sucessfully!",
     LOGIN_ERROR: "Login Failed: Username/password mismatch",
   },
   NAV: {

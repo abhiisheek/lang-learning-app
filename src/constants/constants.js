@@ -4,6 +4,7 @@ const constants = {
   URL_KEYS: {
     LOGIN: "LOGIN",
     SIGNUP: "SIGNUP",
+    LANGUAGES: "LANGUAGES",
   },
   SESSIONSTORAGE_KEYS: {
     USERDETAILS: "userDetails",

@@ -1,6 +1,7 @@
 import React, { Suspense, useMemo, useState } from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
+import { deduceUserDetailsFromToken } from "./utils/app";
 import Home from "./views/Home";
 import MyCourses from "./views/MyCourses";
 import MyReports from "./views/MyReports";
@@ -19,20 +20,15 @@ const App = () => {
   const [userInfo, setUserInfo] = useState(constants.USER_DETAILS_CONTEXT);
 
   const userDetails = useMemo(() => {
-    const lsData = sessionStorage.getItem(
+    const token = sessionStorage.getItem(
       constants.SESSIONSTORAGE_KEYS.USERDETAILS
     );
     let data = userInfo;
 
-    if (lsData) {
-      const userData = JSON.parse(lsData);
-
+    if (token) {
       data = {
-        name: userData.name,
-        email: userData.email,
-        shortId: `${userData.name[0]}${
-          userData.name[userData.name.length - 1]
-        }`,
+        ...data,
+        ...deduceUserDetailsFromToken(token),
       };
     }
 

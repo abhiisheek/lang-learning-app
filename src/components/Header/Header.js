@@ -15,6 +15,7 @@ import {
   Button,
 } from "@mui/material";
 
+import { deduceUserDetailsFromToken } from "../../utils/app";
 import Logo from "../../images/logo.png";
 import { UserContext } from "../../context/UserContext";
 import { HTTPRequestWithCaching } from "../../utils/HTTPRequestWithCaching";
@@ -35,7 +36,7 @@ const {
 const {
   APP_TITLE,
   HEADER: { LOGIN, LOGOUT },
-  LOGIN_DIALOG: { LOGIN_SUCCESS, LOGIN_ERROR },
+  LOGIN_DIALOG: { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESSFULL },
 } = messages;
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -112,17 +113,11 @@ const Header = ({ onLogin }) => {
         cacheResponse: false,
       }).then(
         (res) => {
-          const details = res[0];
-          const shortId = `${details.name[0]}${
-            details.name[details.name.length - 1]
-          }`;
+          sessionStorage.setItem(USERDETAILS, res);
 
-          sessionStorage.setItem(USERDETAILS, JSON.stringify(res[0]));
           userDetails.setUserInfo({
             ...userDetails,
-            name: details.name,
-            email: details.email,
-            shortId,
+            ...deduceUserDetailsFromToken(res),
           });
 
           onLogin(false);
@@ -143,6 +138,21 @@ const Header = ({ onLogin }) => {
   );
 
   const handleOnNotifierClose = useCallback(() => setShowNotifier(false), []);
+
+  const handleOnLogout = useCallback(() => {
+    sessionStorage.removeItem(USERDETAILS);
+    userDetails.setUserInfo({
+      ...userDetails,
+      name: "",
+      email: "",
+      shortId: "",
+      token: "",
+    });
+    handleOnAccountMenuClose();
+    setNotifierMSg(LOGOUT_SUCCESSFULL);
+    setNotifierType("success");
+    setShowNotifier(true);
+  }, [userDetails, handleOnAccountMenuClose]);
 
   const menuOpen = useMemo(() => Boolean(menuTarget), [menuTarget]);
 
@@ -174,7 +184,7 @@ const Header = ({ onLogin }) => {
                 spacing={2}
               >
                 <Grid item>
-                  {userDetails.email ? (
+                  {userDetails.token ? (
                     <StyledAvatar
                       component={IconButton}
                       onClick={handleOnAccountMenuOpen}
@@ -197,7 +207,7 @@ const Header = ({ onLogin }) => {
                   >
                     <MenuItem>{userDetails.name}</MenuItem>
                     <Divider />
-                    <MenuItem onClick={() => {}}>{LOGOUT}</MenuItem>
+                    <MenuItem onClick={handleOnLogout}>{LOGOUT}</MenuItem>
                   </Menu>
                 </Grid>
               </Grid>
