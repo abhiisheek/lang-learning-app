@@ -1,0 +1,9 @@
+.selected {
+  border: 2px solid #0071dc !important;
+  color: #0071dc;
+}
+
+.loader {
+  position: absolute !important;
+  background: rgb(0 0 0 / 30%) !important;
+}

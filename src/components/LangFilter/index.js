@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import PropTypes from "prop-types";
 
 import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
@@ -44,6 +45,11 @@ const LangFilter = ({ value, onChange }) => {
       </Select>
     </FormControl>
   );
+};
+
+LangFilter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default React.memo(LangFilter);

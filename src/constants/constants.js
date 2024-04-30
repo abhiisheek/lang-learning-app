@@ -5,6 +5,8 @@ const constants = {
     LOGIN: "LOGIN",
     SIGNUP: "SIGNUP",
     LANGUAGES: "LANGUAGES",
+    COURSES: "COURSES",
+    PREFERNCES: "PREFERNCES",
   },
   SESSIONSTORAGE_KEYS: {
     USERDETAILS: "userDetails",
@@ -45,6 +47,9 @@ const constants = {
     email: "",
     shortId: "TU",
     token: "",
+  },
+  USER_PREFERNCE_CONTEXT: {
+    langs: {},
   },
   UI_SETTINGS_CONTEXT: {
     openRightDrawer: false,

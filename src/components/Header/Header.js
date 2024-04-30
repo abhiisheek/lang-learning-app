@@ -44,6 +44,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
     boxShadow: "none",
     borderBottom: `1px solid ${theme.palette.divider}`,
     position: "relative",
+    backgroundColor: theme.palette.primary.dark
   },
 }));
 

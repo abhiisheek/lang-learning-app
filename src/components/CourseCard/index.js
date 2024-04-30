@@ -4,6 +4,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  CardMedia,
   Typography,
   Grid,
   Chip,
@@ -12,6 +13,8 @@ import {
 } from "@mui/material";
 import messages from "../../constants/messages";
 import constants from "../../constants/constants";
+import eng from "../../images/english.png";
+import { getImagesByLangAndLevel } from "../../utils/app";
 
 const {
   COURSE: { LANGUAGE, LEVEL, ENROLL },
@@ -36,42 +39,58 @@ const data = {
 
 const CourseCard = (props = data) => {
   const status = STATUS_MAP[props.status];
+  const lang = props?.langMap[props?.langId];
 
   return (
     <Card>
       <CardActionArea disabled={props.actionAreaDiabled}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom component="div">
-            {props.title}
-            <Chip
-              {...status}
-              size="small"
-              style={{ height: 16, fontSize: 12, marginTop: -6, marginLeft: 4 }}
-            />
-          </Typography>
-          <Typography variant="caption" gutterBottom component="div">
-            {props.description}
-          </Typography>
-          <Grid container>
-            <Grid item md={6}>
-              <Typography
-                variant="caption"
-                gutterBottom
-                style={{ fontWeight: 600 }}
-              >
-                {LANGUAGE} : {props.langId}
-              </Typography>
+        <CardContent style={{ padding: 0 }}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={getImagesByLangAndLevel(lang?.label, props?.level)}
+            alt={props.title}
+          />
+          <div style={{ padding: 16 }}>
+            <Typography variant="h6" gutterBottom component="div">
+              {props.title}
+              {status && (
+                <Chip
+                  {...status}
+                  size="small"
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    marginTop: -6,
+                    marginLeft: 4,
+                  }}
+                />
+              )}
+            </Typography>
+            <Typography variant="caption" gutterBottom component="div">
+              {props.description}
+            </Typography>
+            <Grid container>
+              <Grid item md={6}>
+                <Typography
+                  variant="caption"
+                  gutterBottom
+                  style={{ fontWeight: 600 }}
+                >
+                  {LANGUAGE} : {lang?.label}
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography
+                  variant="caption"
+                  gutterBottom
+                  style={{ fontWeight: 600 }}
+                >
+                  {LEVEL} : {LEVEL_MAP[props.level]?.label}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item md={6}>
-              <Typography
-                variant="caption"
-                gutterBottom
-                style={{ fontWeight: 600 }}
-              >
-                {LEVEL} : {LEVEL_MAP[props.level]?.label}
-              </Typography>
-            </Grid>
-          </Grid>
+          </div>
         </CardContent>
       </CardActionArea>
       {props.actionAreaDiabled && (

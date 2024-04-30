@@ -30,6 +30,11 @@ const messages = {
     MARK_AS_COMPLETE: "Mark As Complete",
     ENROLL: "Enroll",
   },
+  LANG_SELECTOR: {
+    TITLE: "Select Languages",
+    SAVE_BTN: "Save",
+    CANCEL_BTN: "Cancel",
+  },
 };
 
 export default messages;
