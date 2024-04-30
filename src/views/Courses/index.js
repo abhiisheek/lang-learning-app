@@ -102,6 +102,7 @@ const Courses = () => {
                 variant="outlined"
                 color="primary"
                 size="small"
+                disabled={!langs?.length}
               >
                 Change
               </Button>

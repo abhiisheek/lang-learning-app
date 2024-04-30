@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import messages from "../../constants/messages";
 import constants from "../../constants/constants";
-import eng from "../../images/english.png";
 import { getImagesByLangAndLevel } from "../../utils/app";
 
 const {

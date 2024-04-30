@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 
 import { styled } from "@mui/material/styles";
@@ -44,7 +50,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
     boxShadow: "none",
     borderBottom: `1px solid ${theme.palette.divider}`,
     position: "relative",
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
   },
 }));
 
@@ -154,6 +160,12 @@ const Header = ({ onLogin }) => {
     setNotifierType("success");
     setShowNotifier(true);
   }, [userDetails, handleOnAccountMenuClose]);
+
+  useEffect(() => {
+    if (!userDetails.token) {
+      setOpenLoginDialog(true);
+    }
+  }, [userDetails.token]);
 
   const menuOpen = useMemo(() => Boolean(menuTarget), [menuTarget]);
 
