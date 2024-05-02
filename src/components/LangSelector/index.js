@@ -37,7 +37,7 @@ const LangSelector = ({ open, onCancel, selected }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showNotifier, setShowNotifier] = useState(false);
-  const [notifierMsg, setNotifierMSg] = useState("");
+  const [notifierMsg, setNotifierMsg] = useState("");
 
   useEffect(() => {
     // setLoading(true);
@@ -107,13 +107,13 @@ const LangSelector = ({ open, onCancel, selected }) => {
         userPerfernce.setPrefernces(res);
         onCancel();
         setShowNotifier(true);
-        setNotifierMSg("Language perfernce saved successfully!");
+        setNotifierMsg("Language perfernce saved successfully!");
       },
       (err) => {
         setLoading(false);
         console.error("Failed to save prefernces.", err);
         setShowNotifier(true);
-        setNotifierMSg("Failed to save language prefernce!");
+        setNotifierMsg("Failed to save language prefernce!");
       }
     );
   }, [userPerfernce, userDetails.token, data, onCancel]);

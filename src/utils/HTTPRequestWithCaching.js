@@ -116,9 +116,8 @@ export class HTTPRequestWithCaching {
               {};
 
             reject({
-              ...errorData,
               status: errorData.status || 404,
-              errorMessage: error.message,
+              errorMessage: errorData.message || errorData,
             });
           }
         );

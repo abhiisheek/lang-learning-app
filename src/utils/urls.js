@@ -8,6 +8,7 @@ const urls = {
   [URL_KEYS.SIGNUP]: "http://localhost:4000/users/signup",
   [URL_KEYS.LANGUAGES]: "http://localhost:4000/languages",
   [URL_KEYS.COURSES]: "http://localhost:4000/courses",
+  [URL_KEYS.ENROLL]: "http://localhost:4000/trackers/enroll",
 };
 
 export const getURL = (key) => urls[key];

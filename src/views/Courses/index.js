@@ -1,6 +1,22 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 
-import { Grid, Button, Chip, Typography } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Chip,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Alert,
+} from "@mui/material";
 
 import { UserContext } from "../../context/UserContext";
 import { LanguagesContext } from "../../context/LanguagesContext";
@@ -12,6 +28,7 @@ import ViewHeader from "../../components/ViewHeader";
 import LangSelector from "../../components/LangSelector";
 import { getURL } from "../../utils/urls";
 import constants from "../../constants/constants";
+import Notifier from "../../components/Notifier";
 
 // const data1 = [
 //   {
@@ -35,9 +52,12 @@ const Courses = () => {
   const langs = useContext(LanguagesContext);
   const userPerfernce = useContext(UserPrefernceContext);
   const [loading, setLoading] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
   const [langSelectorOpen, setLangSelectorOpen] = useState(false);
   const [selectedLangs, setSelectedLangs] = useState({});
   const [data, setData] = useState([]);
+  const [showNotifier, setShowNotifier] = useState(false);
+  const [notifierMsg, setNotifierMsg] = useState("");
 
   const langMap = useMemo(() => {
     const map = {};
@@ -73,6 +93,47 @@ const Courses = () => {
       }
     );
   }, [userDetails.token, selectedLangs]);
+
+  const handleOnEnrollConfirm = useCallback(() => {
+    setLoading(true);
+
+    HTTPRequestWithCaching.httpRequest({
+      url: getURL(constants.URL_KEYS.ENROLL),
+      method: constants.API_META.METHOD.POST,
+      reqParams: {
+        courseId: selectedCourse._id,
+        enrolledTs: Date.now(),
+      },
+      token: userDetails.token,
+    }).then(
+      () => {
+        setLoading(false);
+        setNotifierMsg(
+          `"${selectedCourse.title}" has be enrolled successfully!`
+        );
+        setShowNotifier(true);
+        setSelectedCourse("");
+      },
+      (err) => {
+        setLoading(false);
+        setNotifierMsg(
+          err.errorMessage ||
+            `Failed to enroll to "${selectedCourse.title}" course. Try again!`
+        );
+        setShowNotifier(true);
+      }
+    );
+  }, [selectedCourse, userDetails.token]);
+
+  const alterMsg = useMemo(() => {
+    if (Object.keys(selectedLangs).length === 0) {
+      return "Please select the languages to view courses.";
+    } else if (data.length === 0) {
+      return " No courses available for the selected languages.";
+    } else {
+      return;
+    }
+  }, [selectedLangs, data]);
 
   return (
     <>
@@ -114,15 +175,62 @@ const Courses = () => {
             onSelectedChange={setSelectedLangs}
             onCancel={() => setLangSelectorOpen(false)}
           />
+          {alterMsg && (
+            <Grid
+              container
+              alignItems="center"
+              justifyContent="center"
+              style={{ height: "50%" }}
+            >
+              <Grid item>
+                {alterMsg && <Alert severity="warning">{alterMsg}</Alert>}
+              </Grid>
+            </Grid>
+          )}
           <Grid container spacing={2} style={{ padding: 24 }}>
             {data.map((item, index) => (
               <Grid item md={4} key={index}>
-                <CourseCard {...item} actionAreaDiabled langMap={langMap} />
+                <CourseCard
+                  {...item}
+                  actionAreaDiabled
+                  langMap={langMap}
+                  onEnroll={() => setSelectedCourse(item)}
+                />
               </Grid>
             ))}
           </Grid>
         </>
       )}
+      <Dialog open={selectedCourse} onClose={() => setSelectedCourse("")}>
+        <DialogContent>
+          <DialogContentText>
+            Do you want to enroll to the course ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setSelectedCourse("")}
+            variant="outlined"
+            color="secondary"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleOnEnrollConfirm}
+            autoFocus
+            variant="contained"
+            color="primary"
+          >
+            Enroll
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Notifier
+        open={showNotifier}
+        onClose={() => setShowNotifier(false)}
+        severity="info"
+        message={notifierMsg}
+      />
     </>
   );
 };

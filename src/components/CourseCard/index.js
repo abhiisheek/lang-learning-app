@@ -99,6 +99,7 @@ const CourseCard = (props = data) => {
             color="primary"
             size="small"
             style={{ borderRadius: 25 }}
+            onClick={props.onEnroll}
           >
             {ENROLL}
           </Button>
