@@ -21,41 +21,51 @@ const {
 
 const { LEVEL_MAP, STATUS_MAP } = constants;
 
-const data = {
-  _id: "c1",
-  title: "English Basics 1",
-  description:
-    "This is first part of the English basics series. This for beginners",
-  langId: 222,
-  level: 1,
-  contents: {
-    youtubeVideoSrcId: "L2vS_050c-M",
-    audioSrc: "https://www2.cs.uic.edu/~i101/SoundFiles/preamble10.wav",
-    textContent: `A paragraph with *emphasis* and **strong importance**.`,
-  },
-  status: 1,
-};
+// const data = {
+//   _id: "c1",
+//   title: "English Basics 1",
+//   description:
+//     "This is first part of the English basics series. This for beginners",
+//   langId: 222,
+//   level: 1,
+//   contents: {
+//     youtubeVideoSrcId: "L2vS_050c-M",
+//     audioSrc: "https://www2.cs.uic.edu/~i101/SoundFiles/preamble10.wav",
+//     textContent: `A paragraph with *emphasis* and **strong importance**.`,
+//   },
+//   status: 1,
+// };
 
-const CourseCard = (props = data) => {
-  const status = STATUS_MAP[props.status];
-  const lang = props?.langMap[props?.langId];
+const CourseCard = ({
+  status,
+  langId,
+  langMap,
+  onClick,
+  onEnroll,
+  title,
+  level,
+  actionAreaDiabled,
+  description,
+}) => {
+  const statusDetails = STATUS_MAP[status];
+  const lang = langMap[langId];
 
   return (
     <Card>
-      <CardActionArea disabled={props.actionAreaDiabled}>
+      <CardActionArea disabled={actionAreaDiabled} onClick={onClick}>
         <CardContent style={{ padding: 0 }}>
           <CardMedia
             component="img"
             height="140"
-            image={getImagesByLangAndLevel(lang?.label, props?.level)}
-            alt={props.title}
+            image={getImagesByLangAndLevel(lang?.label, level)}
+            alt={title}
           />
           <div style={{ padding: 16 }}>
             <Typography variant="h6" gutterBottom component="div">
-              {props.title}
+              {title}
               {status && (
                 <Chip
-                  {...status}
+                  {...statusDetails}
                   size="small"
                   style={{
                     height: 16,
@@ -67,7 +77,7 @@ const CourseCard = (props = data) => {
               )}
             </Typography>
             <Typography variant="caption" gutterBottom component="div">
-              {props.description}
+              {description}
             </Typography>
             <Grid container>
               <Grid item md={6}>
@@ -85,21 +95,21 @@ const CourseCard = (props = data) => {
                   gutterBottom
                   style={{ fontWeight: 600 }}
                 >
-                  {LEVEL} : {LEVEL_MAP[props.level]?.label}
+                  {LEVEL} : {LEVEL_MAP[level]?.label}
                 </Typography>
               </Grid>
             </Grid>
           </div>
         </CardContent>
       </CardActionArea>
-      {props.actionAreaDiabled && (
+      {actionAreaDiabled && (
         <CardActions style={{ float: "right" }}>
           <Button
             variant="outlined"
             color="primary"
             size="small"
             style={{ borderRadius: 25 }}
-            onClick={props.onEnroll}
+            onClick={onEnroll}
           >
             {ENROLL}
           </Button>

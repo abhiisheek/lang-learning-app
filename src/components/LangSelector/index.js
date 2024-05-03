@@ -32,7 +32,7 @@ const {
 
 const LangSelector = ({ open, onCancel, selected }) => {
   const userDetails = useContext(UserContext);
-  const langs = useContext(LanguagesContext);
+  const { langs } = useContext(LanguagesContext);
   const userPerfernce = useContext(UserPrefernceContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -100,18 +100,18 @@ const LangSelector = ({ open, onCancel, selected }) => {
       url: getURL(constants.URL_KEYS.PREFERNCES),
       method: constants.API_META.METHOD.PUT,
       token: userDetails.token,
-      reqParams: { prefernces: { langs: langsPayload } },
+      reqParams: { preferences: { langs: langsPayload } },
     }).then(
       (res) => {
         setLoading(false);
-        userPerfernce.setPrefernces(res);
+        userPerfernce.setPreferences(res);
         onCancel();
         setShowNotifier(true);
         setNotifierMsg("Language perfernce saved successfully!");
       },
       (err) => {
         setLoading(false);
-        console.error("Failed to save prefernces.", err);
+        console.error("Failed to save preferences.", err);
         setShowNotifier(true);
         setNotifierMsg("Failed to save language prefernce!");
       }

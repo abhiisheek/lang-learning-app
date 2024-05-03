@@ -49,7 +49,7 @@ import Notifier from "../../components/Notifier";
 
 const Courses = () => {
   const userDetails = useContext(UserContext);
-  const langs = useContext(LanguagesContext);
+  const { langs, map: langMap } = useContext(LanguagesContext);
   const userPerfernce = useContext(UserPrefernceContext);
   const [loading, setLoading] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -58,14 +58,6 @@ const Courses = () => {
   const [data, setData] = useState([]);
   const [showNotifier, setShowNotifier] = useState(false);
   const [notifierMsg, setNotifierMsg] = useState("");
-
-  const langMap = useMemo(() => {
-    const map = {};
-
-    langs.forEach((item) => (map[item._id] = item));
-
-    return map;
-  }, [langs]);
 
   useEffect(() => {
     if (userPerfernce.langs) {

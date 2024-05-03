@@ -29,8 +29,8 @@ const Home = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [langs, setLangs] = useState([]);
-  const [prefernces, setPrefernces] = useState(
+  const [languagesData, setLanguagesData] = useState({ langs: [], map: {} });
+  const [preferences, setPreferences] = useState(
     constants.USER_PREFERNCE_CONTEXT
   );
   const uiSettings = useMemo(
@@ -41,8 +41,8 @@ const Home = ({ children }) => {
   );
 
   const userPrefernce = useMemo(
-    () => ({ ...prefernces, setPrefernces }),
-    [prefernces]
+    () => ({ ...preferences, setPreferences }),
+    [preferences]
   );
 
   useEffect(() => {
@@ -65,7 +65,10 @@ const Home = ({ children }) => {
       }).then(
         (res) => {
           setLoading(false);
-          setLangs(res);
+          const map = {};
+
+          res.forEach((item) => (map[item._id] = item));
+          setLanguagesData({ langs: res, map });
         },
         (err) => {
           setLoading(false);
@@ -79,7 +82,7 @@ const Home = ({ children }) => {
       }).then(
         (res) => {
           setLoading(false);
-          userPrefernce.setPrefernces(res);
+          userPrefernce.setPreferences(res);
         },
         (err) => {
           setLoading(false);
@@ -93,7 +96,7 @@ const Home = ({ children }) => {
   return (
     <UISettingsContext.Provider value={uiSettings}>
       <UserPrefernceContext.Provider value={userPrefernce}>
-        <LanguagesContext.Provider value={langs}>
+        <LanguagesContext.Provider value={languagesData}>
           <div className={cssStyles.wrapper}>
             {loading && <Loader className={cssStyles.loader} />}
             <Header onLogin={handleOnLogin} />

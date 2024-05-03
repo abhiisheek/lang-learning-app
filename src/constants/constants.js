@@ -8,6 +8,7 @@ const constants = {
     COURSES: "COURSES",
     PREFERNCES: "PREFERNCES",
     ENROLL: "ENROLL",
+    MYCOURSES: "MYCOURSES",
   },
   SESSIONSTORAGE_KEYS: {
     USERDETAILS: "userDetails",
@@ -59,9 +60,9 @@ const constants = {
     onCloseRightDrawer: () => {},
   },
   STATUS_MAP: {
-    0: { label: "Not Started", color: "info" },
-    1: { label: "In Progress", color: "warning" },
-    2: { label: "Completed", color: "success" },
+    NOT_STARTED: { label: "Not Started", color: "info" },
+    IN_PROGRESS: { label: "In Progress", color: "warning" },
+    COMPLETED: { label: "Completed", color: "success" },
   },
   LEVEL_MAP: {
     1: { label: "Beginner" },
