@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   Card,
@@ -117,6 +118,18 @@ const CourseCard = ({
       )}
     </Card>
   );
+};
+
+CourseCard.propTypes = {
+  status: PropTypes.string.isRequired,
+  langId: PropTypes.number.isRequired,
+  langMap: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
+  onEnroll: PropTypes.func,
+  title: PropTypes.node.isRequired,
+  level: PropTypes.number.isRequired,
+  actionAreaDiabled: PropTypes.bool.isRequired,
+  description: PropTypes.node.isRequired,
 };
 
 export default React.memo(CourseCard);

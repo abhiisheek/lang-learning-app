@@ -41,6 +41,10 @@ const theme = createTheme({
       main: "#ffc900",
       contrastText: white,
     },
+    info: {
+      main: "rgba(25, 34, 63, 0.88)",
+      contrastText: white,
+    },
     colors: {
       cerulean: "#006cce",
       black: "#000000",
@@ -83,37 +87,37 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         textPrimary: {
-          textTransform: 'none',
-          textDecoration: 'underline',
+          textTransform: "none",
+          textDecoration: "underline",
           "&:hover": {
             color: darken(primaryMain, hoverDarkenCoefficient),
             // backgroundColor: gray,
-            background: 'none',
+            background: "none",
           },
         },
         textSecondary: {
-          textTransform: 'none',
-          textDecoration: 'underline',
+          textTransform: "none",
+          textDecoration: "underline",
           "&:hover": {
             color: darken(secondaryMain, hoverDarkenCoefficient),
             // backgroundColor: gray,
-            background: 'none',
+            background: "none",
           },
         },
         containedPrimary: {
-          textTransform: 'none',
+          textTransform: "none",
           "&:hover": {
             backgroundColor: darken(primaryMain, hoverDarkenCoefficient),
           },
         },
         containedSecondary: {
-          textTransform: 'none',
+          textTransform: "none",
           "&:hover": {
             backgroundColor: darken(secondaryMain, hoverDarkenCoefficient),
           },
         },
         outlinedPrimary: {
-          textTransform: 'none',
+          textTransform: "none",
           border: "2px solid",
           "&:hover": {
             color: darken(primaryMain, hoverDarkenCoefficient),
@@ -122,7 +126,7 @@ const theme = createTheme({
           },
         },
         outlinedSecondary: {
-          textTransform: 'none',
+          textTransform: "none",
           border: "2px solid",
           "&:hover": {
             color: darken(secondaryMain, hoverDarkenCoefficient),

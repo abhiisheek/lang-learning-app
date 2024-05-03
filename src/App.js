@@ -44,7 +44,7 @@ const App = () => {
               <Routes>
                 <Route path="/my-courses" element={<MyCourses />} />
                 <Route path="/my-reports" element={<MyReports />} />
-                <Route path="/course/:courseId" exact element={<Course />} />
+                <Route path="/course/:id" exact element={<Course />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="*" element={<Navigate to="/courses" replace />} />
               </Routes>

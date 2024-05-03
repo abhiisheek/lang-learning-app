@@ -9,6 +9,7 @@ const constants = {
     PREFERNCES: "PREFERNCES",
     ENROLL: "ENROLL",
     MYCOURSES: "MYCOURSES",
+    COURSE_STATUS: "COURSE_STATUS",
   },
   SESSIONSTORAGE_KEYS: {
     USERDETAILS: "userDetails",

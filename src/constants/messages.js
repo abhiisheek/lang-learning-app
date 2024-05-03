@@ -28,6 +28,7 @@ const messages = {
     LANGUAGE: "Language",
     LEVEL: "Level",
     MARK_AS_COMPLETE: "Mark As Complete",
+    START_COURSE: "Start Course",
     ENROLL: "Enroll",
   },
   LANG_SELECTOR: {

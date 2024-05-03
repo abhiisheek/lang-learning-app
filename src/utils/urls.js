@@ -9,6 +9,7 @@ const urls = {
   [URL_KEYS.LANGUAGES]: "http://localhost:4000/languages",
   [URL_KEYS.COURSES]: "http://localhost:4000/courses",
   [URL_KEYS.ENROLL]: "http://localhost:4000/trackers/enroll",
+  [URL_KEYS.COURSE_STATUS]: "http://localhost:4000/trackers/status",
   [URL_KEYS.MYCOURSES]: "http://localhost:4000/users/courses",
 };
 
