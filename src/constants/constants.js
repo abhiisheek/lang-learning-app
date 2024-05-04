@@ -10,6 +10,7 @@ const constants = {
     ENROLL: "ENROLL",
     MYCOURSES: "MYCOURSES",
     COURSE_STATUS: "COURSE_STATUS",
+    ASSESSEMENTS: "ASSESSEMENTS",
   },
   SESSIONSTORAGE_KEYS: {
     USERDETAILS: "userDetails",
@@ -66,6 +67,7 @@ const constants = {
     COMPLETED: { label: "Completed", color: "success" },
   },
   LEVEL_MAP: {
+    0: { label: "No Proficiency" },
     1: { label: "Beginner" },
     2: { label: "Intermediate" },
     3: { label: "Advanced" },

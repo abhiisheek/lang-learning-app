@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import SchoolIcon from "@mui/icons-material/School";
-import AssessmentIcon from "@mui/icons-material/Assessment";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 import { Link, useLocation } from "react-router-dom";
@@ -20,7 +20,7 @@ import clsx from "clsx";
 import cssStyles from "./NavMenu.module.css";
 
 const {
-  NAV: { MY_COURSES, MY_REPORTS, COURSES },
+  NAV: { MY_COURSES, MY_PROGRESS, COURSES },
 } = messages;
 
 const navs = [
@@ -30,9 +30,9 @@ const navs = [
     path: "/my-courses",
   },
   {
-    name: MY_REPORTS,
-    icon: AssessmentIcon,
-    path: "/my-reports",
+    name: MY_PROGRESS,
+    icon: ShowChartIcon,
+    path: "/my-progress",
   },
   {
     name: COURSES,

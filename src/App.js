@@ -4,7 +4,7 @@ import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { deduceUserDetailsFromToken } from "./utils/app";
 import Home from "./views/Home";
 import MyCourses from "./views/MyCourses";
-import MyReports from "./views/MyReports";
+import MyReports from "./views/MyProgress";
 import Courses from "./views/Courses";
 import Course from "./views/Course";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -43,7 +43,7 @@ const App = () => {
             <Suspense fallback={"Loading..."}>
               <Routes>
                 <Route path="/my-courses" element={<MyCourses />} />
-                <Route path="/my-reports" element={<MyReports />} />
+                <Route path="/my-progress" element={<MyReports />} />
                 <Route path="/course/:id" exact element={<Course />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="*" element={<Navigate to="/courses" replace />} />

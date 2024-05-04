@@ -94,6 +94,8 @@ const Courses = () => {
       method: constants.API_META.METHOD.POST,
       reqParams: {
         courseId: selectedCourse._id,
+        langId: selectedCourse.langId,
+        level: selectedCourse.level,
         enrolledTs: Date.now(),
       },
       token: userDetails.token,

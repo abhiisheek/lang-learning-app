@@ -21,7 +21,7 @@ const messages = {
   },
   NAV: {
     MY_COURSES: "My Courses",
-    MY_REPORTS: "My Reports",
+    MY_PROGRESS: "My Progress",
     COURSES: "Courses",
   },
   COURSE: {
