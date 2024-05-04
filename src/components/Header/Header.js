@@ -28,6 +28,7 @@ import { HTTPRequestWithCaching } from "../../utils/HTTPRequestWithCaching";
 import constants from "../../constants/constants";
 import messages from "../../constants/messages";
 import Login from "./Login";
+import Signup from "./Signup";
 import { getURL } from "../../utils/urls";
 import Notifier from "../Notifier";
 
@@ -43,6 +44,7 @@ const {
   APP_TITLE,
   HEADER: { LOGIN, LOGOUT },
   LOGIN_DIALOG: { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESSFULL },
+  SIGNUP_DIALOG: { SIGNUP_SUCCESS, SIGNUP_ERROR },
 } = messages;
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -89,9 +91,15 @@ const Header = ({ onLogin }) => {
   const [notifierType, setNotifierType] = useState("info");
   const [notifierMsg, setNotifierMSg] = useState("");
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const [openSignupDialog, setOpenSignupDialog] = useState(false);
 
   const handleOnLoginDialogClose = useCallback(
     () => setOpenLoginDialog(false),
+    []
+  );
+
+  const handleOnSignupDialogClose = useCallback(
+    () => setOpenSignupDialog(false),
     []
   );
 
@@ -144,6 +152,40 @@ const Header = ({ onLogin }) => {
     [onLogin, userDetails, handleOnLoginDialogClose]
   );
 
+  const handleOnSignup = useCallback(
+    (payload) => {
+      onLogin(true);
+      HTTPRequestWithCaching.httpRequest({
+        url: getURL(URL_KEYS.SIGNUP),
+        reqParams: payload,
+        method: METHOD.POST,
+        cacheResponse: false,
+      }).then(
+        (res) => {
+          sessionStorage.setItem(USERDETAILS, res);
+
+          userDetails.setUserInfo({
+            ...userDetails,
+            ...deduceUserDetailsFromToken(res),
+          });
+
+          onLogin(false);
+          handleOnSignupDialogClose();
+          setNotifierMSg(SIGNUP_SUCCESS);
+          setNotifierType("success");
+          setShowNotifier(true);
+        },
+        (err) => {
+          setNotifierMSg(err.errorMessage || SIGNUP_ERROR);
+          setNotifierType("error");
+          setShowNotifier(true);
+          onLogin(false);
+        }
+      );
+    },
+    [onLogin, userDetails, handleOnSignupDialogClose]
+  );
+
   const handleOnNotifierClose = useCallback(() => setShowNotifier(false), []);
 
   const handleOnLogout = useCallback(() => {
@@ -159,6 +201,7 @@ const Header = ({ onLogin }) => {
     setNotifierMSg(LOGOUT_SUCCESSFULL);
     setNotifierType("success");
     setShowNotifier(true);
+    window.location.reload();
   }, [userDetails, handleOnAccountMenuClose]);
 
   useEffect(() => {
@@ -232,7 +275,15 @@ const Header = ({ onLogin }) => {
         open={openLoginDialog}
         onCancel={handleOnLoginDialogClose}
         onLogin={handleOnLogin}
-        onSignup={() => {}} // TODO
+        onSignup={() => {
+          setOpenSignupDialog(true);
+          handleOnLoginDialogClose();
+        }}
+      />
+      <Signup
+        open={openSignupDialog}
+        onCancel={handleOnSignupDialogClose}
+        onSignup={handleOnSignup}
       />
       <Notifier
         open={showNotifier}

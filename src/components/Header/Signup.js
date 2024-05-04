@@ -13,38 +13,65 @@ import {
 import messages from "../../constants/messages";
 
 const {
-  LOGIN_DIALOG: {
+  SIGNUP_DIALOG: {
     TITLE,
     EMAIL,
+    NAME,
+    CONFIRM_PASSWORD,
     PASSWORD,
-    SING_UP,
+    PASSWORD_NOT_MATCHED,
     CANCEL_BTN,
-    LOGIN_BTN,
+    SIGNUP_BTN,
     PASSWORD_HELPTEXT,
   },
 } = messages;
 
-const Login = ({ onLogin, open, onCancel, onSignup }) => {
+const Signup = ({ open, onCancel, onSignup }) => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleOnNameChange = useCallback(
+    (evt) => setName(evt.target.value),
+    []
+  );
 
   const handleOnEmailChange = useCallback(
     (evt) => setEmail(evt.target.value),
     []
   );
+
   const handleOnPasswordChange = useCallback(
     (evt) => setPassword(evt.target.value),
     []
   );
 
+  const handleOnConfirmPasswordChange = useCallback(
+    (evt) => setConfirmPassword(evt.target.value),
+    []
+  );
+
   useEffect(() => {
     setEmail("");
+    setName("");
+    setConfirmPassword("");
     setPassword("");
   }, [open]);
+
+  const isPasswordMatching = useMemo(
+    () => password === confirmPassword,
+    [password, confirmPassword]
+  );
 
   const isPasswordValid = useMemo(
     () => password.length >= 6 && password.length <= 10,
     [password]
+  );
+
+  const isEmailValid = useMemo(
+    () => email.match(/[A-Za-z0-9\\._%+\\-]+@[A-Za-z0-9\\.\\-]+\.[A-Za-z]{2,}/),
+    [email]
   );
 
   return (
@@ -54,11 +81,20 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
         <Grid container spacing={2} direction="column">
           <Grid item>
             <TextField
+              label={NAME}
+              fullWidth
+              value={name}
+              onChange={handleOnNameChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
               type="email"
               label={EMAIL}
               fullWidth
               value={email}
               onChange={handleOnEmailChange}
+              error={email && !isEmailValid}
             />
           </Grid>
           <Grid item>
@@ -72,6 +108,18 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
               error={password && !isPasswordValid}
             />
           </Grid>
+          <Grid item>
+            <TextField
+              type="password"
+              label={CONFIRM_PASSWORD}
+              fullWidth
+              disabled={!password}
+              value={confirmPassword}
+              onChange={handleOnConfirmPasswordChange}
+              error={!isPasswordMatching}
+              helperText={!isPasswordMatching && PASSWORD_NOT_MATCHED}
+            />
+          </Grid>
           <Grid item container justifyContent="flex-end" spacing={2}>
             <Grid item>
               <Button onClick={onCancel} variant="outlined">
@@ -80,18 +128,19 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
             </Grid>
             <Grid item>
               <Button
-                onClick={() => onLogin({ email, password })}
+                onClick={() => onSignup({ email, password, name })}
                 variant="contained"
-                disabled={!email || !isPasswordValid}
+                disabled={
+                  !isPasswordMatching ||
+                  !isEmailValid ||
+                  !name ||
+                  !isPasswordValid ||
+                  !confirmPassword
+                }
               >
-                {LOGIN_BTN}
+                {SIGNUP_BTN}
               </Button>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Button variant="text" onClick={onSignup}>
-              {SING_UP}
-            </Button>
           </Grid>
         </Grid>
       </DialogContent>
@@ -99,11 +148,10 @@ const Login = ({ onLogin, open, onCancel, onSignup }) => {
   );
 };
 
-Login.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+Signup.propTypes = {
   open: PropTypes.bool.isRequired,
   onSignup: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
 
-export default React.memo(Login);
+export default React.memo(Signup);
