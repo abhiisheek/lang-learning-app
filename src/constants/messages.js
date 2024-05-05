@@ -5,6 +5,7 @@ const messages = {
     LOGOUT: "Logout",
     LOGIN: "Login",
     SIGNUP: "Signup",
+    MANAGE_ACCOUNT: "Manage Account",
   },
   LOGIN_DIALOG: {
     TITLE: "Login",

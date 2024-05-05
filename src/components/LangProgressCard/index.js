@@ -68,8 +68,8 @@ const LangProgressCard = (props) => {
   );
   const chartData = useMemo(() => {
     const completedCount = Object.keys(completedCourses).length;
-    const startedCount = Object.keys(startedCourses).length;
-    const notstartedCount = totalCourses - completedCount - startedCount;
+    const startedCount = Object.keys(startedCourses).length - completedCount;
+    const notstartedCount = totalCourses - startedCount - completedCount;
 
     return [
       {

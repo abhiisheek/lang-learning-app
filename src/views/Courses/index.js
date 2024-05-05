@@ -195,7 +195,7 @@ const Courses = () => {
           </Grid>
         </>
       )}
-      <Dialog open={selectedCourse} onClose={() => setSelectedCourse("")}>
+      <Dialog open={selectedCourse} onClose={() => setSelectedCourse("")} xs fullWidth>
         <DialogContent>
           <DialogContentText>
             Do you want to enroll to the course ?

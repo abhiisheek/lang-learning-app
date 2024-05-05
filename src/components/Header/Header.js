@@ -21,6 +21,8 @@ import {
   Button,
 } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 import { deduceUserDetailsFromToken } from "../../utils/app";
 import Logo from "../../images/logo.png";
 import { UserContext } from "../../context/UserContext";
@@ -42,7 +44,7 @@ const {
 } = constants;
 const {
   APP_TITLE,
-  HEADER: { LOGIN, LOGOUT },
+  HEADER: { LOGIN, LOGOUT, MANAGE_ACCOUNT },
   LOGIN_DIALOG: { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESSFULL },
   SIGNUP_DIALOG: { SIGNUP_SUCCESS, SIGNUP_ERROR },
 } = messages;
@@ -92,6 +94,7 @@ const Header = ({ onLogin }) => {
   const [notifierMsg, setNotifierMSg] = useState("");
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
   const [openSignupDialog, setOpenSignupDialog] = useState(false);
+  const navigate = useNavigate();
 
   const handleOnLoginDialogClose = useCallback(
     () => setOpenLoginDialog(false),
@@ -262,6 +265,9 @@ const Header = ({ onLogin }) => {
                     onClose={handleOnAccountMenuClose}
                   >
                     <MenuItem>{userDetails.name}</MenuItem>
+                    <MenuItem onClick={() => navigate("/manage-account")}>
+                      {MANAGE_ACCOUNT}
+                    </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleOnLogout}>{LOGOUT}</MenuItem>
                   </Menu>

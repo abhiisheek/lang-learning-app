@@ -265,7 +265,7 @@ const Course = () => {
           <Dialog
             open={operation}
             onClose={() => setOperation(false)}
-            sm
+            xs
             fullWidth
           >
             <DialogContent>
