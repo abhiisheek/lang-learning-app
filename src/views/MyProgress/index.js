@@ -27,6 +27,7 @@ const MyProgress = () => {
       },
       () => {
         setData([]);
+        setLoading(false);
       }
     );
   }, [userDetails.token]);

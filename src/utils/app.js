@@ -11,13 +11,18 @@ import g3 from "../images/german_3.png";
 
 export const deduceUserDetailsFromToken = (token) => {
   const { name, email } = decodeToken(token)?.data;
-  const shortId = `${name[0]}${name[name.length - 1]}`;
+  const splitData = name.split(/ +/);
+
+  const shortId =
+    splitData.length > 1
+      ? `${splitData[0][0]}${splitData[1][0]}`
+      : `${name[0]}${name[name.length - 1]}`;
 
   return {
     token,
     name,
     email,
-    shortId,
+    shortId: shortId.toUpperCase(),
   };
 };
 
