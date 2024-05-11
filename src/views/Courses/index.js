@@ -62,29 +62,27 @@ const Courses = () => {
   useEffect(() => {
     if (userPerfernce.langs) {
       setSelectedLangs(userPerfernce.langs);
-    }
-  }, [userPerfernce.langs]);
 
-  useEffect(() => {
-    setLoading(true);
-    HTTPRequestWithCaching.httpRequest({
-      url: `${getURL(constants.URL_KEYS.COURSES)}`,
-      method: constants.API_META.METHOD.POST,
-      reqParams: {
-        langIds: Object.keys(selectedLangs),
-      },
-      token: userDetails.token,
-    }).then(
-      (res) => {
-        setLoading(false);
-        setData(res);
-      },
-      (err) => {
-        console.error(err);
-        setLoading(false);
-      }
-    );
-  }, [userDetails.token, selectedLangs]);
+      setLoading(true);
+      HTTPRequestWithCaching.httpRequest({
+        url: `${getURL(constants.URL_KEYS.COURSES)}`,
+        method: constants.API_META.METHOD.POST,
+        reqParams: {
+          langIds: Object.keys(userPerfernce.langs),
+        },
+        token: userDetails.token,
+      }).then(
+        (res) => {
+          setLoading(false);
+          setData(res);
+        },
+        (err) => {
+          console.error(err);
+          setLoading(false);
+        }
+      );
+    }
+  }, [userPerfernce.langs, userDetails.token]);
 
   const handleOnEnrollConfirm = useCallback(() => {
     setLoading(true);
@@ -195,7 +193,12 @@ const Courses = () => {
           </Grid>
         </>
       )}
-      <Dialog open={selectedCourse} onClose={() => setSelectedCourse("")} xs fullWidth>
+      <Dialog
+        open={selectedCourse}
+        onClose={() => setSelectedCourse("")}
+        xs
+        fullWidth
+      >
         <DialogContent>
           <DialogContentText>
             Do you want to enroll to the course ?
